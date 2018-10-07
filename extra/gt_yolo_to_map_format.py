@@ -26,20 +26,6 @@ def convert_yolo_coordinates_to_voc(x_c_n, y_c_n, width_n, height_n, img_width, 
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 with open("class_list.txt") as f:
     obj_list = f.readlines()
     obj_list = [x.strip() for x in obj_list]
@@ -60,38 +46,24 @@ else:
 
 
 
-true_txt = [os.path.basename(x) for x in glob.glob('true_txt/yolo_format/*.txt')]
-true_txt.remove('classes.txt')
-assert len(true_txt) != 0
+true_txt = [os.path.basename(x).split('.')[0] for x in glob.glob('true_txt/yolo_format/*.txt')]
+true_txt.remove('classes')
 
-## 1. CHECKING
-for tmp_file in true_txt:
+images = [x.split('.')[0] for x in glob.glob('*.jpg')]
 
-    ann_txt = tmp_file.split('.txt')[0]
-    print('ann_txt : ',ann_txt)
 
-    print("[ INFO ] Finding images in",root_path)
-    images =glob.glob('*.jpg') 
+can_open = [val for val in true_txt if val in images]
 
-    for fname in images:
-        if fname.startswith(ann_txt):
+for each in can_open:
+    img = cv2.imread(each+'.jpg')
+    img_height, img_width = img.shape[:2]
+    with open('true_txt'+os.sep+'yolo_format'+os.sep+each+'.txt') as f:
 
-            img = cv2.imread(fname)
-
-            img_height, img_width = img.shape[:2]
-            print(fname)
-            break
-        #else:    
-            #print("Not found",fname)
-      
-    ## 2. CONVERT
-    with open('true_txt'+os.sep+'yolo_format'+os.sep+tmp_file) as f:
- 
         content = f.readlines()   
         content = [x.strip() for x in content]      
      
 
-        with open('true_txt'+os.sep+'map_format'+os.sep+tmp_file, "a") as new_f:#make new txt
+        with open('true_txt'+os.sep+'map_format'+os.sep+each+'.txt', "a") as new_f:#make new txt
             for line in content:               
                 obj_id, x_c_n, y_c_n, width_n, height_n = line.split()
                 obj_name = obj_list[int(obj_id)]

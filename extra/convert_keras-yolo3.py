@@ -82,7 +82,6 @@ with open(annotation_file, 'r') as annot_f:
                     # Here we are dealing with predictions annotations
                     # <class_name> <confidence> <left> <top> <right> <bottom>
                     x_min, y_min, x_max, y_max, class_id, score = list(map(float, bbox.split(',')))
-                    out_box = '{} {} {} {} {} {}'.format(
-                        class_map[int(class_id)].strip(), score,  x_min, y_min, x_max, y_max)
+                    out_box = '{} {} {} {} {} {}'.format(class_map[int(class_id)].strip(), score,  x_min, y_min, x_max, y_max)
 
                 out_f.write(out_box + "\n")
