@@ -36,7 +36,7 @@ show_animation = False
 if not args.no_animation:
   try:
     import cv2
-    show_animation = True
+    show_animation = False
   except ImportError:
     print("\"opencv-python\" not found, please install to visualize the results.")
     args.no_animation = True
