@@ -55,7 +55,9 @@ images = [x.split('.')[0] for x in glob.glob('*.jpg')]
 can_open = [val for val in true_txt if val in images]
 
 for each in can_open:
+    print(each)
     img = cv2.imread(each+'.jpg')
+
     img_height, img_width = img.shape[:2]
     with open('true_txt'+os.sep+'yolo_format'+os.sep+each+'.txt') as f:
 

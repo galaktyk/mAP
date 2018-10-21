@@ -27,7 +27,7 @@ if args.set_class_iou is not None:
   specific_iou_flagged = True
 
 # if there are no images then no animation can be shown
-img_path = 'C:/Users/dome/proj4/yolov3_detect/testing/'
+img_path = 'C:/Users/dome/proj4/yolo3_and_sort/yolov3_detect/testing'
  
 
 
@@ -283,7 +283,7 @@ if show_animation:
    Create a list of all the class names present in the ground-truth (gt_classes).
 """
 # get a list with the ground-truth files
-ground_truth_files_list = glob.glob('C:/Users/dome/proj4/yolov3_detect/testing/true_txt/map_format/*.txt')
+ground_truth_files_list = glob.glob('C:/Users/dome/proj4/yolo3_and_sort/yolov3_detect/testing/true_txt/map_format/*.txt')
 if len(ground_truth_files_list) == 0:
   error("Error: No ground-truth files found!")
 ground_truth_files_list.sort()
@@ -295,7 +295,7 @@ for txt_file in ground_truth_files_list:
   file_id = txt_file.split(".txt",1)[0]
   file_id = os.path.basename(os.path.normpath(file_id))
   # check if there is a correspondent predicted objects file
-  if not os.path.exists('C:/Users/dome/proj4/yolov3_detect/testing/pred_txt/' + file_id + ".txt"):
+  if not os.path.exists('C:/Users/dome/proj4/yolo3_and_sort/yolov3_detect/testing/pred_txt/' + file_id + ".txt"):
     error_msg = "Error. File not found: predicted/" +  file_id + ".txt\n"
     error_msg += "(You can avoid this error message by running extra/intersect-gt-and-pred.py)"
     error(error_msg)
@@ -372,7 +372,7 @@ if specific_iou_flagged:
    Load each of the predicted files into a temporary ".json" file.
 """
 # get a list with the predicted files
-predicted_files_list = glob.glob('C:/Users/dome/proj4/yolov3_detect/testing/pred_txt/*.txt')
+predicted_files_list = glob.glob('C:/Users/dome/proj4/yolo3_and_sort/yolov3_detect/testing/pred_txt/*.txt')
 predicted_files_list.sort()
 
 for class_index, class_name in enumerate(gt_classes):
@@ -383,7 +383,7 @@ for class_index, class_name in enumerate(gt_classes):
     file_id = txt_file.split(".txt",1)[0]
     file_id = os.path.basename(os.path.normpath(file_id))
     if class_index == 0:
-      if not os.path.exists('C:/Users/dome/proj4/yolov3_detect/testing/true_txt/map_format/'+ file_id + ".txt"):
+      if not os.path.exists('C:/Users/dome/proj4/yolo3_and_sort/yolov3_detect/testing/true_txt/map_format/'+ file_id + ".txt"):
         error_msg = "Error. File not found: ground-truth/" +  file_id + ".txt\n"
         error_msg += "(You can avoid this error message by running extra/intersect-gt-and-pred.py)"
         error(error_msg)
