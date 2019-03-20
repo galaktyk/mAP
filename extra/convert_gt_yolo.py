@@ -46,7 +46,7 @@ with open("class_list.txt") as f:
   
 
 
-root_path = os.path.normpath(os.getcwd() + os.sep + os.pardir + os.sep +os.pardir+os.sep+'yolov3_detect/testing')
+root_path = os.path.normpath(os.getcwd() + os.sep + os.pardir + os.sep +os.pardir+os.sep+'yolo3_and_sort/yolov3_detect/testing')
 print("[ INFO ] Root:",root_path)
 os.chdir(root_path)
 

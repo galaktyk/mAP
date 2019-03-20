@@ -16,6 +16,7 @@ parser.add_argument('-q', '--quiet', help="minimalistic console output.", action
 parser.add_argument('-i', '--ignore', nargs='+', type=str, help="ignore a list of classes.")
 # argparse receiving list of classes with specific IoU
 parser.add_argument('--set-class-iou', nargs='+', type=str, help="set IoU for a specific class.")
+parser.add_argument('--person_only', help="calc mAP only person class.",action="store_true")
 args = parser.parse_args()
 
 # if there are no classes to ignore then replace None by empty list
@@ -318,6 +319,16 @@ for txt_file in ground_truth_files_list:
       error_msg += "by running the script \"remove_space.py\" or \"rename_class.py\" in the \"extra/\" folder."
       error(error_msg)
     # check if class is in the ignore list, if yes skip
+############################## Ground truth ################################################
+    if args.person_only : 
+        if ((class_name == 'male') or (class_name == 'female')):
+            
+            class_name = 'person'
+        else :
+            continue
+       
+
+##############################################################################    
     if class_name in args.ignore:
       continue
     bbox = left + " " + top + " " + right + " " +bottom
@@ -340,8 +351,8 @@ gt_classes = list(gt_counter_per_class.keys())
 # let's sort the classes alphabetically
 gt_classes = sorted(gt_classes)
 n_classes = len(gt_classes)
-#print(gt_classes)
-#print(gt_counter_per_class)
+print(gt_classes)
+print(gt_counter_per_class)
 
 """
  Check format of the flag --set-class-iou (if used)
@@ -396,6 +407,11 @@ for class_index, class_name in enumerate(gt_classes):
         error_msg += " Expected: <class_name> <confidence> <left> <top> <right> <bottom>\n"
         error_msg += " Received: " + line
         error(error_msg)
+
+
+
+      if args.person_only and (tmp_class_name == 'male' or tmp_class_name == 'female'):
+        tmp_class_name = 'person'
       if tmp_class_name == class_name:
         #print("match")
         bbox = left + " " + top + " " + right + " " +bottom
